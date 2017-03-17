@@ -1,24 +1,33 @@
 {% extends "emails/base-body-html.jinja" %}
 
+{% block logo %}
+    {% if project.logo_small_thumbnail_url %}
+    <img alt="{{ project.name }}" title="" height="auto" src="{{ project.logo_big_thumbnail_url }}" style="border:none;border-radius:;display:block;outline:none;text-decoration:none;width:100%;height:auto;" width="60">
+    {% else %}
+    <img alt="{{ project.name }}" title="" height="auto" src="{{ static('emails/logo-color.png') }}" style="border:none;border-radius:;display:block;outline:none;text-decoration:none;width:100%;height:auto;" width="60">
+    {% endif %}
+{% endblock %}
+
+{% block title %}
+    Ownership transfer declined
+{% endblock %}
+
 {% block body %}
     {% trans owner_name=project.owner.get_full_name(), rejecter_name=rejecter.get_full_name(), project_name=project.name %}
-        <p>Hi {{ owner_name }},</p>
-        <p>{{ rejecter_name }} has declined your offer and will not become the new project owner for "{{project_name}}".</p>
+
+    <p>Hello {{ owner_name }}, <br> {{ rejecter_name}} has declined your offer and will not become the new project owner of <strong> {{project_name}} </strong></p>
     {% endtrans %}
 
     {% if reason %}
-    {% trans rejecter_name=rejecter.get_full_name()%}
-    <p>{{ rejecter_name }} says:</p>
-    {% endtrans %}
-    <p>{{ reason }}</p>
+        {% trans rejecter_name=rejecter.get_full_name()%}
+        <p>{{ rejecter_name }} says:</p>
+        {% endtrans %}
+
+        <blockquote>{{reason}}</blockquote>
+
     {% endif %}
 
-    {% trans %}
-    <p>If you want, you can still try to transfer the project ownership to a different person.</p>
-    {% endtrans %}
-
-    <a class="button" href="{{ resolve_front_url("project-admin", project.slug) }}"
-       title="{% trans %}Request transfer to a different person{% endtrans %}">
-       {% trans %}Request transfer to a different person{% endtrans %}
-    </a>
+    <p>If you want, you can still <a style="color:#72a114;" href="{{ resolve_front_url("project-admin", project.slug) }}"
+       title="{% trans %} Request transfer to a different person{% endtrans %}"> {% trans %}Request transfer to a different person{% endtrans %}</a>
+    </p>
 {% endblock %}

@@ -30,7 +30,7 @@ from django.conf import settings
 from django.utils.translation import ugettext as _
 
 from taiga.base import exceptions as exc
-from taiga.base.mails import InlineCSSTemplateMail
+from djmail.template_mail import TemplateMail
 from taiga.projects.notifications.choices import NotifyLevel
 from taiga.projects.history.choices import HistoryType
 from taiga.projects.history.services import (make_key_from_model_object,
@@ -200,8 +200,8 @@ def _make_template_mail(name: str):
     instance for specified name, and return an instance
     of it.
     """
-    cls = type("InlineCSSTemplateMail",
-               (InlineCSSTemplateMail,),
+    cls = type("TemplateMail",
+               (TemplateMail,),
                {"name": name})
 
     return cls()

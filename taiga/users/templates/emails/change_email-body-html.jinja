@@ -1,11 +1,18 @@
 {% extends "emails/base-body-html.jinja" %}
 
+{% block logo %}
+    <img alt="Taiga" title="" height="auto" src="{{ static('emails/logo-color.png') }}" style="border:none;border-radius:;display:block;outline:none;text-decoration:none;width:100%;height:auto;" width="60">
+{% endblock %}
+
+{% block title %}
+    {% trans %}
+    Change your email
+    {% endtrans %}
+{% endblock %}
+
 {% block body %}
     {% trans full_name=user.get_full_name(), url=resolve_front_url("change-email", user.email_token) %}
-    <h1>Change your email</h1>
-    <p>Hello {{ full_name }},<br />please confirm your email</p>
-    <a class="button" href="{{ url }}" title="Confirm email">Confirm email</a>
-    <p>You can ignore this message if you did not request.</p>
-    <p><small>The Taiga Team</small></p>
+    <p>Hello {{ user }}, <br> please <a style="color: #72a114" href="{{ url }}" title="Confirm email">Confirm email</a>.</p>
+    <p><small>You can ignore this message if you did not request.</small></p>
     {% endtrans %}
 {% endblock %}

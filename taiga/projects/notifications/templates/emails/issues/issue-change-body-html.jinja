@@ -1,10 +1,21 @@
 {% extends "emails/updates-body-html.jinja" %}
 
+{% block logo %}
+    {% if project.logo_small_thumbnail_url %}
+    <img alt="{{ project.name }}" title="" height="auto" src="{{ project.logo_big_thumbnail_url }}" style="border:none;border-radius:;display:block;outline:none;text-decoration:none;width:100%;height:auto;" width="60">
+    {% else %}
+    <img alt="{{ project.name }}" title="" height="auto" src="{{ static('emails/logo-color.png') }}" style="border:none;border-radius:;display:block;outline:none;text-decoration:none;width:100%;height:auto;" width="60">
+    {% endif %}
+{% endblock %}
+
+{% block title %}
+    Issue updated
+{% endblock %}
+
 {% block head %}
     {% trans user=user.get_full_name(), changer=changer.get_full_name(), project=project.name, ref=snapshot.ref, subject=snapshot.subject, url=resolve_front_url("issue", project.slug, snapshot.ref) %}
-    <h1>Issue updated</h1>
-    <p>Hello {{ user }}, <br> {{ changer }} has updated an issue on {{ project }}</p>
-    <p>Issue #{{ ref }} {{ subject }}</p>
-    <a class="button" href="{{ url }}" title="See Issue #{{ ref }}: {{ subject }} in Taiga">See issue</a>
+
+    <p>Hello {{ user }}, <br> {{ changer }} has updated issue <a style="color: #72a114" href="{{ url }}" title="See Issue #{{ ref }} {{ subject }} in Taiga"><strong>#{{ ref }} {{ subject }}</strong></a> on {{ project }}</p>
+
     {% endtrans %}
 {% endblock %}

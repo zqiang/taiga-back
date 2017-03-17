@@ -54,6 +54,8 @@ from taiga.timeline.service import build_project_namespace
 
 from . import choices
 
+from .services import get_logo_small_thumbnail_url, get_logo_big_thumbnail_url
+
 from dateutil.relativedelta import relativedelta
 
 
@@ -432,6 +434,14 @@ class Project(ProjectDefaults, TaggedMixin, TagsColorsMixin, models.Model):
     @property
     def project(self):
         return self
+
+    @property
+    def logo_small_thumbnail_url(self):
+        return get_logo_small_thumbnail_url(self)
+
+    @property
+    def logo_big_thumbnail_url(self):
+        return get_logo_big_thumbnail_url(self)
 
     def _get_q_watchers(self):
         return Q(notify_policies__project_id=self.id) & ~Q(notify_policies__notify_level=NotifyLevel.none)

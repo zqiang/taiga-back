@@ -1,24 +1,23 @@
 {% extends "emails/base-body-html.jinja" %}
 
+{% block logo %}
+    <img alt="Taiga" title="" height="auto" src="{{ static('emails/logo-color.png') }}" style="border:none;border-radius:;display:block;outline:none;text-decoration:none;width:100%;height:auto;" width="60">
+{% endblock %}
+
+{% block title %}
+    Message from {{ full_name }}
+{% endblock %}
+
 {% block body %}
-    <p>
-    {% if photo_url %}
-        <a href="{{ user_profile_url }}" title="{{ full_name }}" >
-            <img style="vertical-align:middle;" src="{{ photo_url }}" alt="{{ full_name }}" width="60"/>
-        </a>
-    {% endif %}
+
     {% trans full_name=full_name, user_profile_url=user_profile_url, project_name=project_name %}
-        <a style="font-weight: bold;text-decoration:none;color:#222;" href="{{ user_profile_url }}" title="{{ full_name }}">{{ full_name }}</a> has written to {{ project_name }}
+    <p><a style="font-weight: bold;text-decoration:none;color:#222;" href="{{ user_profile_url }}" title="{{ full_name }}">{{ full_name }}</a> has written to {{ project_name }}</p>
     {% endtrans %}
-    </p>
 
-    <p>{{ comment }}</p>
+    <q>{{ comment }}</q>
 
-    <hr>
-
-    <p>
     {% trans project_name=project_name, project_settings_url=project_settings_url %}
-        You are receiving this message because you are listed as administrator of the project titled {{ project_name }}. If you don't want members of the Taiga community contacting your project, please <a href="{{ project_settings_url }}">update your project settings</a> to prevent such contacts. Regular communications amongst members of the project will not be affected.
+    <p><small>You are receiving this message because you are listed as administrator of the project titled {{ project_name }}. If you don't want members of the Taiga community contacting your project, please <a href="{{ project_settings_url }}">update your project settings</a> to prevent such contacts. Regular communications amongst members of the project will not be affected.</small></p>
     {% endtrans %}
-    </p>
+
 {% endblock %}

@@ -23,7 +23,7 @@ from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 
-from taiga.base.mails import InlineCSSTemplateMail
+from djmail.template_mail import TemplateMail
 from taiga.base.mails import mail_builder
 
 from taiga.projects.models import Project, Membership
@@ -186,7 +186,7 @@ class Command(BaseCommand):
                     break
             context["snapshot"] = snapshot
 
-            cls = type("InlineCSSTemplateMail", (InlineCSSTemplateMail,), {"name": notification_email[1]})
+            cls = type("TemplateMail", (TemplateMail,), {"name": notification_email[1]})
             email = cls()
             email.send(email_address, context)
 

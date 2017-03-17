@@ -6,21 +6,31 @@
     {% set sender_full_name=_("someone") %}
 {% endif %}
 
+{% block title %}
+    {% trans %}
+    You have been invited to Taiga!
+    {% endtrans %}
+{% endblock %}
 
 {% block body %}
     {% trans full_name=sender_full_name, project=membership.project %}
-    <h2>You have been invited to Taiga!</h2>
-<p>Hi! {{ full_name }} has sent you an invitation to join project <em>{{ project }}</em> in Taiga.</br> Taiga is a Free, open Source Agile Project Management Tool.</p>
+    <p>Hi! {{ full_name }} has sent you an invitation to join project <strong>{{ project }}</strong> in Taiga.</p>
     {% endtrans %}
 
     {% if membership.invitation_extra_text %}
         {% trans extra=membership.invitation_extra_text|linebreaksbr %}
-    <p><small>And now a few words from the jolly good fellow or sistren<br/> who thought so kindly as to invite you</small></p>
-    <p><strong>{{ extra }}</strong></p>
+            <p>And now a few words from the jolly good fellow or sistren who thought so kindly as to invite you</p>
+            <blockquote>{{ extra }}</blockquote>
         {% endtrans %}
     {% endif %}
 
-    <a class="button" href="{{ resolve_front_url("invitation", membership.token) }}"
+    <a style="color:#72a114;" href="{{ resolve_front_url("invitation", membership.token) }}"
        title="{{ _("Accept your invitation to Taiga") }}">{{ _("Accept your invitation") }}</a>
-    <p><small>{{ _("The Taiga Team") }}</small></p>
+{% endblock %}
+
+{% block footer %}
+    {{ super() }}
+    {% trans url=resolve_front_url('cancel-account', cancel_token) %}
+    You may remove your account from this service <a href="{{ url }}" title="Remove your account" style="color: #72a114">clicking here</a>
+    {% endtrans %}
 {% endblock %}

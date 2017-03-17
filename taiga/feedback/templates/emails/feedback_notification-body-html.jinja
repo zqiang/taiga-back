@@ -1,8 +1,15 @@
 {% extends "emails/base-body-html.jinja" %}
 
+{% block logo %}
+    <img alt="Taiga" title="" height="auto" src="{{ static('emails/logo-color.png') }}" style="border:none;border-radius:;display:block;outline:none;text-decoration:none;width:100%;height:auto;" width="60">
+{% endblock %}
+
+{% block title %}
+    Feedback
+{% endblock %}
+
 {% block body %}
     {% trans full_name=feedback_entry.full_name, email=feedback_entry.email %}
-    <h1>Feedback</h1>
     <p>Taiga has received feedback from {{ full_name }} <{{ email }}></p>
     {% endtrans %}
 
@@ -12,9 +19,9 @@
     {% endtrans %}
 
     {% if extra %}
-    <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateBody">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
-            <td valign="top" valign="top" class="bodyContent">
+            <td valign="top" valign="top">
                 <h3>{{ _("Extra info") }}</h3>
                 <dl>
                     {% for k, v in extra.items() %}
@@ -26,4 +33,5 @@
         </tr>
     </table>
     {% endif %}
+
 {% endblock %}
