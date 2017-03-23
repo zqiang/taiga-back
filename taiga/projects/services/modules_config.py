@@ -18,11 +18,11 @@
 
 import importlib
 
-from .. import models
 from django.conf import settings
 
 
 def get_modules_config(project):
+    from .. import models
     modules_config, created = models.ProjectModulesConfig.objects.get_or_create(project=project)
 
     if created or modules_config.config == None:

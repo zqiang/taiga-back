@@ -19,8 +19,6 @@
 from django.db import transaction, connection
 from django.core.exceptions import ObjectDoesNotExist
 
-from taiga.projects import models
-
 from contextlib import suppress
 
 
@@ -88,6 +86,7 @@ def update_projects_order_in_bulk(bulk_data: list, field: str, user):
     apply_order_updates(memberships_orders, new_memberships_orders)
 
     from taiga.base.utils import db
+    from taiga.projects import models
     db.update_attr_in_bulk_for_ids(memberships_orders, field, model=models.Membership)
 
 

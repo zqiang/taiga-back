@@ -24,8 +24,6 @@ from django.conf import settings
 from django.core.validators import validate_email
 from django.utils.translation import ugettext as _
 
-from .. import models
-
 
 def get_members_from_bulk(bulk_data, **additional_fields):
     """Convert `bulk_data` into a list of members.
@@ -48,6 +46,8 @@ def get_members_from_bulk(bulk_data, **additional_fields):
             data_copy["user_id"] = user.id
 
         data_copy.update(additional_fields)
+
+        from .. import models
         members.append(models.Membership(**data_copy))
     return members
 
@@ -67,6 +67,7 @@ def create_members_in_bulk(bulk_data, callback=None, precall=None, **additional_
 
 
 def remove_user_from_project(user, project):
+    from .. import models
     models.Membership.objects.get(project=project, user=user).delete()
 
 
