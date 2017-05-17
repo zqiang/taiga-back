@@ -64,6 +64,7 @@ from taiga.projects.api import IssueTypeViewSet
 from taiga.projects.api import PriorityViewSet
 from taiga.projects.api import SeverityViewSet
 from taiga.projects.api import ProjectTemplateViewSet
+from taiga.projects.api import GameViewSet
 
 router.register(r"projects", ProjectViewSet, base_name="projects")
 router.register(r"projects/(?P<resource_id>\d+)/fans", ProjectFansViewSet, base_name="project-fans")
@@ -79,6 +80,7 @@ router.register(r"issue-statuses", IssueStatusViewSet, base_name="issue-statuses
 router.register(r"issue-types", IssueTypeViewSet, base_name="issue-types")
 router.register(r"priorities", PriorityViewSet, base_name="priorities")
 router.register(r"severities",SeverityViewSet , base_name="severities")
+router.register(r"games", GameViewSet, base_name="games")
 
 
 # Custom Attributes
